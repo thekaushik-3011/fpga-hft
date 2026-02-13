@@ -144,9 +144,13 @@ def main():
     # Benchmark Loop
     start_time = time.time()
     
+    printed_0 = 0
+    printed_1 = 0
+
     for i in range(len(X_test)):
-        # Quantize sample
-        x_q = [float_to_fixed(f) for f in X_test[i]]
+        # Quantize sample? NO! X_test in JSON is ALREADY Q8.8 integers from training script.
+        # Just ensure they are int-type for the driver.
+        x_q = [int(f) for f in X_test[i]]
         
         # Run FPGA
         pred, val, cycles = accelerator.predict(x_q)
@@ -156,8 +160,15 @@ def main():
             
         total_cycles += cycles
         
-        if i < 5:
-            print(f"Sample {i}: True={y_test[i]}, Pred={pred}, Val={val/256.0:.4f}, Cycles={cycles}")
+        # Print samples for debug - Ensure we see BOTH classes
+        if (y_test[i] == 0 and printed_0 < 3) or (y_test[i] == 1 and printed_1 < 3):
+             print(f"Sample {i}: True={y_test[i]}, Pred={pred}, Val={val/256.0:.4f}, Cycles={cycles}")
+             if y_test[i] == 0: printed_0 += 1
+             else: printed_1 += 1
+            
+        # Progress Indicator (Every 10000 samples to keep it cleaner)
+        if i % 10000 == 0 and i > 0:
+            print(f"Processed {i}/{len(X_test)} samples... Current Acc: {correct/(i+1):.2%}")
             
     end_time = time.time()
     

@@ -1,0 +1,244 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Wed May 21 22:58:25 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Fri Feb 13 21:14:20 2026
+# Process ID         : 214854
+# Current directory  : /home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1
+# Command line       : vivado -log system_wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_wrapper.tcl
+# Log file           : /home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/system_wrapper.vds
+# Journal file       : /home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/vivado.jou
+# Running On         : aetherion
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.3 LTS
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i7-1195G7 @ 2.90GHz
+# CPU Frequency      : 4676.853 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 16526 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 20821 MB
+# Available Virtual  : 9538 MB
+#-----------------------------------------------------------
+source system_wrapper.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/2025.1/Vivado/data/ip'.
+Command: synth_design -top system_wrapper -part xc7z020clg400-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 215246
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2159.785 ; gain = 440.711 ; free physical = 5078 ; free virtual = 7680
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'system_wrapper' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/hdl/system_wrapper.v:13]
+INFO: [Synth 8-6157] synthesizing module 'system' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/synth/system.v:13]
+INFO: [Synth 8-6157] synthesizing module 'system_axi_lite_wrapper_0_0' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/.Xil/Vivado-214854-aetherion/realtime/system_axi_lite_wrapper_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'system_axi_lite_wrapper_0_0' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/.Xil/Vivado-214854-aetherion/realtime/system_axi_lite_wrapper_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'system_axi_smc_0' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/.Xil/Vivado-214854-aetherion/realtime/system_axi_smc_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'system_axi_smc_0' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/.Xil/Vivado-214854-aetherion/realtime/system_axi_smc_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'system_processing_system7_0_0' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/.Xil/Vivado-214854-aetherion/realtime/system_processing_system7_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'system_processing_system7_0_0' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/.Xil/Vivado-214854-aetherion/realtime/system_processing_system7_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'system_rst_ps7_0_50M_0' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/.Xil/Vivado-214854-aetherion/realtime/system_rst_ps7_0_50M_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'system_rst_ps7_0_50M_0' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/.Xil/Vivado-214854-aetherion/realtime/system_rst_ps7_0_50M_0_stub.v:6]
+WARNING: [Synth 8-7071] port 'mb_reset' of module 'system_rst_ps7_0_50M_0' is unconnected for instance 'rst_ps7_0_50M' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/synth/system.v:285]
+WARNING: [Synth 8-7071] port 'bus_struct_reset' of module 'system_rst_ps7_0_50M_0' is unconnected for instance 'rst_ps7_0_50M' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/synth/system.v:285]
+WARNING: [Synth 8-7071] port 'peripheral_reset' of module 'system_rst_ps7_0_50M_0' is unconnected for instance 'rst_ps7_0_50M' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/synth/system.v:285]
+WARNING: [Synth 8-7071] port 'interconnect_aresetn' of module 'system_rst_ps7_0_50M_0' is unconnected for instance 'rst_ps7_0_50M' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/synth/system.v:285]
+WARNING: [Synth 8-7023] instance 'rst_ps7_0_50M' of module 'system_rst_ps7_0_50M_0' has 10 connections declared, but only 6 given [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/synth/system.v:285]
+INFO: [Synth 8-6155] done synthesizing module 'system' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/synth/system.v:13]
+INFO: [Synth 8-6155] done synthesizing module 'system_wrapper' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/hdl/system_wrapper.v:13]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2238.723 ; gain = 519.648 ; free physical = 5120 ; free virtual = 7756
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2253.566 ; gain = 534.492 ; free physical = 5120 ; free virtual = 7756
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2253.566 ; gain = 534.492 ; free physical = 5120 ; free virtual = 7756
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2253.566 ; gain = 0.000 ; free physical = 5120 ; free virtual = 7756
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0/system_processing_system7_0_0_in_context.xdc] for cell 'system_i/processing_system7_0'
+Finished Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0/system_processing_system7_0_0_in_context.xdc] for cell 'system_i/processing_system7_0'
+Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_axi_lite_wrapper_0_0/system_axi_lite_wrapper_0_0/system_axi_lite_wrapper_0_0_in_context.xdc] for cell 'system_i/axi_lite_wrapper_0'
+Finished Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_axi_lite_wrapper_0_0/system_axi_lite_wrapper_0_0/system_axi_lite_wrapper_0_0_in_context.xdc] for cell 'system_i/axi_lite_wrapper_0'
+Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_axi_smc_0/system_axi_smc_0/system_axi_smc_0_in_context.xdc] for cell 'system_i/axi_smc'
+Finished Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_axi_smc_0/system_axi_smc_0/system_axi_smc_0_in_context.xdc] for cell 'system_i/axi_smc'
+Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_rst_ps7_0_50M_0/system_rst_ps7_0_50M_0/system_rst_ps7_0_50M_0_in_context.xdc] for cell 'system_i/rst_ps7_0_50M'
+Finished Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_rst_ps7_0_50M_0/system_rst_ps7_0_50M_0/system_rst_ps7_0_50M_0_in_context.xdc] for cell 'system_i/rst_ps7_0_50M'
+Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2299.523 ; gain = 0.000 ; free physical = 5043 ; free virtual = 7708
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2299.559 ; gain = 0.000 ; free physical = 5043 ; free virtual = 7708
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2299.559 ; gain = 580.484 ; free physical = 5010 ; free virtual = 7683
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2307.527 ; gain = 588.453 ; free physical = 5010 ; free virtual = 7683
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2307.527 ; gain = 588.453 ; free physical = 5009 ; free virtual = 7682
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2307.527 ; gain = 588.453 ; free physical = 5007 ; free virtual = 7681
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2307.527 ; gain = 588.453 ; free physical = 4991 ; free virtual = 7655
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2406.527 ; gain = 687.453 ; free physical = 4841 ; free virtual = 7519
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2406.527 ; gain = 687.453 ; free physical = 4841 ; free virtual = 7519
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2416.543 ; gain = 697.469 ; free physical = 4835 ; free virtual = 7516
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2591.355 ; gain = 872.281 ; free physical = 4597 ; free virtual = 7311
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2591.355 ; gain = 872.281 ; free physical = 4597 ; free virtual = 7311
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2591.355 ; gain = 872.281 ; free physical = 4597 ; free virtual = 7311
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2591.355 ; gain = 872.281 ; free physical = 4597 ; free virtual = 7311
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2591.355 ; gain = 872.281 ; free physical = 4597 ; free virtual = 7311
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2591.355 ; gain = 872.281 ; free physical = 4597 ; free virtual = 7311
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+------------------------------+----------+
+|      |BlackBox name                 |Instances |
++------+------------------------------+----------+
+|1     |system_axi_lite_wrapper_0_0   |         1|
+|2     |system_axi_smc_0              |         1|
+|3     |system_processing_system7_0_0 |         1|
+|4     |system_rst_ps7_0_50M_0        |         1|
++------+------------------------------+----------+
+
+Report Cell Usage: 
++------+----------------------------+------+
+|      |Cell                        |Count |
++------+----------------------------+------+
+|1     |system_axi_lite_wrapper_0   |     1|
+|2     |system_axi_smc              |     1|
+|3     |system_processing_system7_0 |     1|
+|4     |system_rst_ps7_0_50M        |     1|
++------+----------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2591.355 ; gain = 872.281 ; free physical = 4597 ; free virtual = 7311
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 2591.355 ; gain = 826.289 ; free physical = 4597 ; free virtual = 7311
+Synthesis Optimization Complete : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 2591.363 ; gain = 872.281 ; free physical = 4597 ; free virtual = 7311
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2591.363 ; gain = 0.000 ; free physical = 4597 ; free virtual = 7311
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2591.363 ; gain = 0.000 ; free physical = 4758 ; free virtual = 7465
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: e2f52e47
+INFO: [Common 17-83] Releasing license: Synthesis
+27 Infos, 6 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:38 ; elapsed = 00:00:36 . Memory (MB): peak = 2591.391 ; gain = 1064.926 ; free physical = 4755 ; free virtual = 7464
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1965.046; main = 1965.046; forked = 319.386
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3291.418; main = 2591.359; forked = 963.887
+INFO: [Common 17-1381] The checkpoint '/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/synth_1/system_wrapper.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file system_wrapper_utilization_synth.rpt -pb system_wrapper_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Feb 13 21:15:02 2026...

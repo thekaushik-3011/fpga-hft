@@ -1,261 +1,235 @@
 # simulation/train_and_quantize.py
 """
 SVM Training and Fixed-Point Quantization
-Trains both Linear and RBF Kernel SVM
-Quantizes to Q8.8 format for hardware implementation
+Trains Linear SVM
+Evaluates Accuracy for:
+1. Floating Point (Baseline)
+2. 16-bit Fixed Point (Q8.8) - Hardware Target
+3. 8-bit Fixed Point (Q3.5) - Low Precision Experiment
 """
 
 import numpy as np
-from sklearn.svm import SVC, LinearSVC
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
-from sklearn.metrics import confusion_matrix, classification_report
-import pickle
+import os
+from sklearn.svm import LinearSVC
+from sklearn.metrics import accuracy_score
 import json
+import pickle
 
 class FixedPointConverter:
-    """Q8.8 Fixed-Point Converter"""
+    """Fixed-Point Converter"""
     
-    def __init__(self, int_bits=8, frac_bits=8):
-        self.int_bits = int_bits
+    def __init__(self, total_bits, frac_bits):
+        self.total_bits = total_bits
         self.frac_bits = frac_bits
-        self.total_bits = int_bits + frac_bits
+        self.int_bits = total_bits - frac_bits
         self.scale = 2 ** frac_bits
-        self.max_val = (2 ** (self.total_bits - 1) - 1) / self.scale
-        self.min_val = -(2 ** (self.total_bits - 1)) / self.scale
+        
+        # Signed range: -2^(N-1) to 2^(N-1) - 1
+        self.min_val = -(2 ** (total_bits - 1))
+        self.max_val = (2 ** (total_bits - 1)) - 1
+        
+        print(f"Initialized Q{self.int_bits}.{self.frac_bits} ({total_bits}-bit): Scale={self.scale}, Range=[{self.min_val/self.scale:.4f}, {self.max_val/self.scale:.4f}]")
         
     def float_to_fixed(self, value):
-        """Convert float to Q8.8 fixed-point (16-bit signed)"""
-        # Clip to representable range
-        clipped = np.clip(value, self.min_val, self.max_val)
-        # Scale and round
-        fixed = np.round(clipped * self.scale).astype(np.int16)
-        return fixed
+        """Convert float to integer representation"""
+        scaled = value * self.scale
+        rounded = np.round(scaled)
+        clipped = np.clip(rounded, self.min_val, self.max_val)
+        return clipped.astype(np.int32)
     
     def fixed_to_float(self, fixed_val):
-        """Convert Q8.8 back to float"""
+        """Convert integer representation back to float"""
         return fixed_val / self.scale
-    
+
     def quantize_array(self, arr):
-        """Quantize numpy array"""
         return self.float_to_fixed(arr)
 
-class SVMTrainer:
-    """Train and quantize SVM models"""
+class SVMSimulator:
+    """Simulates Fixed-Point Inference"""
     
-    def __init__(self, kernel='linear', C=1.0, gamma='scale'):
-        self.kernel = kernel
-        self.C = C
-        self.gamma = gamma
-        self.model = None
-        self.fp_converter = FixedPointConverter()
+    @staticmethod
+    def simulate_linear(X_float, weights_float, bias_float, converter):
+        """
+        Simulate dot product using integer arithmetic.
+        X, W, B are converted to fixed-point integers.
+        Result = (Sum(X_i * W_i)) + (B << frac_bits)
+        Note: X*W produces 2*frac_bits. B needs to be aligned.
+        Actually, usually we align everything to the same point or handle the double precision.
         
-    def train(self, X_train, y_train):
-        """Train SVM model"""
-        if self.kernel == 'linear':
-            # Use LinearSVC for efficiency
-            self.model = LinearSVC(C=self.C, max_iter=10000, dual=True)
-        else:
-            # Use kernel SVM
-            self.model = SVC(kernel=self.kernel, C=self.C, gamma=self.gamma)
+        Standard FPGA Mult: Q8.8 * Q8.8 = Q16.16
+        Accumulator: Q16.16
+        Bias: Q8.8 -> Shift to Q16.16? Or add before?
         
-        self.model.fit(X_train, y_train)
-        print(f"\n{self.kernel.upper()} SVM Training Complete")
+        Let's assume a simpler model often used:
+        y = (Sum(x_q * w_q) >> frac_bits) + b_q
+        This keeps the accumulator result compatible with the bias format.
+        """
         
-        return self.model
-    
-    def extract_parameters(self):
-        """Extract model parameters for hardware implementation"""
-        params = {}
+        print(f"Simulating {converter.total_bits}-bit Inference...")
         
-        if self.kernel == 'linear':
-            # Linear SVM: weights and bias
-            params['weights'] = self.model.coef_[0]  # Shape: (n_features,)
-            params['bias'] = self.model.intercept_[0]
-            params['n_features'] = len(params['weights'])
-            
-        else:
-            # Kernel SVM: support vectors, dual coefficients, bias
-            params['support_vectors'] = self.model.support_vectors_
-            params['dual_coef'] = self.model.dual_coef_[0]
-            params['bias'] = self.model.intercept_[0]
-            params['gamma'] = self.model._gamma if hasattr(self.model, '_gamma') else 1.0
-            params['n_support'] = len(params['support_vectors'])
-            params['n_features'] = self.model.support_vectors_.shape[1]
-            
-        return params
-    
-    def quantize_parameters(self, params):
-        """Quantize parameters to Q8.8"""
-        quant_params = {}
+        # 1. Quantize Inputs and Weights
+        X_q = converter.quantize_array(X_float) # Shape (N, 40)
+        W_q = converter.quantize_array(weights_float) # Shape (40,)
+        b_q = converter.quantize_array(bias_float) # Scalar
         
-        if self.kernel == 'linear':
-            quant_params['weights_fp'] = self.fp_converter.quantize_array(params['weights'])
-            quant_params['bias_fp'] = self.fp_converter.float_to_fixed(params['bias'])
-            quant_params['n_features'] = params['n_features']
-            
-            # Store float versions for comparison
-            quant_params['weights_float'] = params['weights']
-            quant_params['bias_float'] = params['bias']
-            
-        else:
-            quant_params['sv_fp'] = self.fp_converter.quantize_array(params['support_vectors'])
-            quant_params['dual_coef_fp'] = self.fp_converter.quantize_array(params['dual_coef'])
-            quant_params['bias_fp'] = self.fp_converter.float_to_fixed(params['bias'])
-            quant_params['gamma_fp'] = self.fp_converter.float_to_fixed(params['gamma'])
-            quant_params['n_support'] = params['n_support']
-            quant_params['n_features'] = params['n_features']
-            
-            # Store float versions
-            quant_params['sv_float'] = params['support_vectors']
-            quant_params['dual_coef_float'] = params['dual_coef']
-            quant_params['bias_float'] = params['bias']
-            quant_params['gamma_float'] = params['gamma']
-            
-        return quant_params
-    
-    def evaluate(self, X_test, y_test):
-        """Evaluate model performance"""
-        y_pred = self.model.predict(X_test)
+        # 2. Integer Dot Product
+        # Accumulator can grow large, Python handles large ints auto
+        dot_product = np.dot(X_q, W_q) # (N,) array of integers
         
-        acc = accuracy_score(y_test, y_pred)
-        prec, rec, f1, _ = precision_recall_fscore_support(y_test, y_pred, average='binary')
-        cm = confusion_matrix(y_test, y_pred)
+        # 3. Scaling Adjustment
+        # X was scaled by 2^F, W by 2^F. Dot product is scaled by 2^(2F).
+        # We need to bring it back to 2^F to add with Bias (which is 2^F).
+        # Standard approach: Shift right by F.
+        dot_product_scaled = np.floor(dot_product / (2 ** converter.frac_bits)).astype(np.int32)
         
-        metrics = {
-            'accuracy': acc,
-            'precision': prec,
-            'recall': rec,
-            'f1_score': f1,
-            'confusion_matrix': cm.tolist()
-        }
+        # 4. Add Bias
+        decision_function = dot_product_scaled + b_q
         
-        print(f"\n{self.kernel.upper()} SVM Metrics:")
-        print(f"  Accuracy:  {acc:.4f}")
-        print(f"  Precision: {prec:.4f}")
-        print(f"  Recall:    {rec:.4f}")
-        print(f"  F1-Score:  {f1:.4f}")
-        print(f"\nConfusion Matrix:\n{cm}")
+        # 5. Prediction (Sign Bit)
+        # Class 1 if >= 0, else 0
+        y_pred = (decision_function >= 0).astype(int)
         
-        return metrics
-
-from sklearn.preprocessing import StandardScaler
+        return y_pred
 
 def main():
-    # Load dataset
-    X = np.load('../results/X_train.npy')
-    y = np.load('../results/y_train.npy')
-    
-    # Split dataset
-    X_train_raw, X_test_raw, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
-    )
-    
-    # Scale dataset (CRITICAL for Q8.8 fixed point)
-    scaler = StandardScaler()
-    X_train = scaler.fit_transform(X_train_raw)
-    X_test = scaler.transform(X_test_raw)
-    
-    print(f"Training set: {X_train.shape} (Scaled)")
-    print(f"Test set: {X_test.shape} (Scaled)")
-    print(f"Test Data Range: Min={X_test.min():.2f}, Max={X_test.max():.2f}")
-    
-    # Train Linear SVM
-    print("\n" + "="*60)
-    print("TRAINING LINEAR SVM")
-    print("="*60)
-    linear_trainer = SVMTrainer(kernel='linear', C=1.0)
-    linear_model = linear_trainer.train(X_train, y_train)
-    linear_metrics = linear_trainer.evaluate(X_test, y_test)
-    
-    # Extract and quantize parameters
-    linear_params = linear_trainer.extract_parameters()
-    linear_quant = linear_trainer.quantize_parameters(linear_params)
-    
-    print(f"\nLinear SVM Parameters:")
-    print(f"  Weights shape: {linear_params['weights'].shape}")
-    print(f"  Bias: {linear_params['bias']:.6f}")
-    print(f"  Quantized bias: {linear_quant['bias_fp']} (0x{int(linear_quant['bias_fp']) & 0xFFFF:04X})")
-    
-    # Train Kernel SVM (RBF)
-    print("\n" + "="*60)
-    print("TRAINING RBF KERNEL SVM")
-    print("="*60)
-    kernel_trainer = SVMTrainer(kernel='rbf', C=10.0, gamma='scale')
-    kernel_model = kernel_trainer.train(X_train, y_train)
-    kernel_metrics = kernel_trainer.evaluate(X_test, y_test)
-    
-    # Extract and quantize parameters
-    kernel_params = kernel_trainer.extract_parameters()
-    
-    # Limit support vectors to 8 for hardware
-    max_sv = 8
-    if kernel_params['n_support'] > max_sv:
-        print(f"\nWarning: Model has {kernel_params['n_support']} support vectors")
-        print(f"Selecting top {max_sv} by |dual_coef|")
+    # 1. Load Data
+    data_dir = "../svm_fpga_accelerator/results" # Adjusted path based on execution location
+    if not os.path.exists(data_dir):
+        # Fallback if running from within simulation folder
+        data_dir = "../results"
         
-        # Select top SVs by importance
-        importance = np.abs(kernel_params['dual_coef'])
-        top_indices = np.argsort(importance)[-max_sv:]
-        
-        kernel_params['support_vectors'] = kernel_params['support_vectors'][top_indices]
-        kernel_params['dual_coef'] = kernel_params['dual_coef'][top_indices]
-        kernel_params['n_support'] = max_sv
+    print(f"Loading data from {data_dir}...")
+    X_train = np.load(os.path.join(data_dir, 'X_train.npy'))
+    y_train = np.load(os.path.join(data_dir, 'y_train.npy'))
+    X_test = np.load(os.path.join(data_dir, 'X_test.npy'))
+    y_test = np.load(os.path.join(data_dir, 'y_test.npy'))
     
-    kernel_quant = kernel_trainer.quantize_parameters(kernel_params)
+    # Map labels {-1, 1} or {1, 2, 3}? 
+    # FI-2010 labels are 1 (Up), 2 (Stationary), 3 (Down).
+    # We need binary for simple SVM.
+    # Let's map: 1 (Up) -> 1, 2/3 (Stationary/Down) -> 0?
+    # Or strict Up vs Down (drop Stationary)?
+    # Let's check unique values
+    unique_labels = np.unique(y_test)
+    print(f"Original Labels: {unique_labels}")
     
-    print(f"\nKernel SVM Parameters:")
-    print(f"  Support Vectors: {kernel_params['n_support']}")
-    print(f"  Gamma: {kernel_params['gamma']:.6f}")
-    print(f"  Bias: {kernel_params['bias']:.6f}")
+    # Filter/Map Labels
+    # Logs show labels are Z-scored floats, approximately centered at 0? 
+    # Or maybe they are just regression targets.
+    # We'll threshold at 0 to create binary classes (Up vs Down/Stationary).
+    # To be more precise for HFT, we might want to drop small values (Stationary).
     
-    # Save models and parameters
-    results = {
+    threshold = 0.0
+    print(f"Thresholding labels at {threshold}...")
+    
+    # Create Binary Target: 1 if > 0, else 0
+    y_train_bin = np.where(y_train > threshold, 1, 0)
+    y_test_bin = np.where(y_test > threshold, 1, 0)
+    
+    # For simulation stability, if "Stationary" is dominant, we might want to drop it.
+    # But let's verify class balance first.
+    unique, counts = np.unique(y_train_bin, return_counts=True)
+    print(f"Train Class Balance: {dict(zip(unique, counts))}")
+    
+    if len(unique) < 2:
+        print("WARNING: Single class detected after thresholding. Adjusting strategy.")
+        # Try Median split if 0 doesn't work?
+        median = np.median(y_train)
+        print(f"Retrying with Median Split ({median})...")
+        y_train_bin = np.where(y_train > median, 1, 0)
+        y_test_bin = np.where(y_test > median, 1, 0)
+        unique, counts = np.unique(y_train_bin, return_counts=True)
+        print(f"New Train Class Balance: {dict(zip(unique, counts))}")
+
+    X_train_bin = X_train
+    X_test_bin = X_test
+
+    # 2. Train Float Model (Linear SVM)
+    print("\nTraining Linear SVM (Float32)...")
+    clf = LinearSVC(C=1.0, dual=False, max_iter=10000)
+    clf.fit(X_train_bin, y_train_bin)
+    
+    # Evaluate Float
+    y_pred_float = clf.predict(X_test_bin)
+    acc_float = accuracy_score(y_test_bin, y_pred_float)
+    print(f"Floating Point Accuracy: {acc_float*100:.2f}%")
+    
+    # Extract Weights/Bias
+    W_float = clf.coef_[0]
+    b_float = clf.intercept_[0]
+    
+    # 3. define Converters
+    # 16-bit: Q8.8 (Standard)
+    # Range [-128, 127], Precision 1/256 (~0.0039)
+    # Data is Z-score scaled (~[-3, 3]), so Q8.8 is plenty of headroom, decent precision.
+    conv_16 = FixedPointConverter(16, 8)
+    
+    # 8-bit: Need to fit [-3, 3]. 
+    # 3 bits integer (incl sign) -> range [-4, 3.xxx]. 
+    # int_bits=3 => frac_bits=5.
+    # Q3.5: Sign + 2 integer + 5 fractional.
+    # Range: -4.00 to 3.96. Precision: 1/32 (0.03125).
+    # Let's try Q3.5 for 8-bit.
+    conv_8 = FixedPointConverter(8, 5)
+    
+    # 4. Simulate & Evaluate
+    
+    # 16-bit
+    y_pred_16 = SVMSimulator.simulate_linear(X_test_bin, W_float, b_float, conv_16)
+    acc_16 = accuracy_score(y_test_bin, y_pred_16)
+    
+    # 8-bit
+    y_pred_8 = SVMSimulator.simulate_linear(X_test_bin, W_float, b_float, conv_8)
+    acc_8 = accuracy_score(y_test_bin, y_pred_8)
+    
+    print("\n" + "="*40)
+    print("FINAL RESULTS")
+    print("="*40)
+    print(f"Floating Point Accuracy:   {acc_float*100:.2f}%")
+    print(f"16-bit (Q8.8) Accuracy:    {acc_16*100:.2f}%  ( Delta: {acc_16-acc_float:.2%} )")
+    print(f"8-bit  (Q3.5) Accuracy:    {acc_8*100:.2f}%  ( Delta: {acc_8-acc_float:.2%} )")
+    
+    # 5. Save Outputs
+    print("\nSaving 16-bit Quantized Parameters for Hardware...")
+    
+    W_q16 = conv_16.quantize_array(W_float)
+    b_q16 = conv_16.float_to_fixed(b_float)
+    
+    params = {
         'linear': {
-            'model': linear_model,
-            'params': linear_params,
-            'quant_params': linear_quant,
-            'metrics': linear_metrics
-        },
-        'kernel': {
-            'model': kernel_model,
-            'params': kernel_params,
-            'quant_params': kernel_quant,
-            'metrics': kernel_metrics
-        },
-        'test_data': {
-            'X_test': X_test,
-            'y_test': y_test
+            'weights': W_q16.tolist(),
+            'bias': int(b_q16),
+            'n_features': len(W_q16),
+            'format': "Q8.8"
         }
     }
     
-    # Save to files
-    with open('../results/svm_models.pkl', 'wb') as f:
-        pickle.dump(results, f)
+    # Save JSON
+    json_path = os.path.join(data_dir, 'quantized_params.json')
+    with open(json_path, 'w') as f:
+        json.dump(params, f, indent=2)
+        
+    print(f"Saved to {json_path}")
+
+    # Save test data for PYNQ driver (Binary Labels)
+    # Scale X_test to Q8.8 integers
+    X_test_int = conv_16.quantize_array(X_test_bin)
     
-    # Save quantized parameters as JSON for RTL testbench
-    json_params = {
-        'linear': {
-            'weights': linear_quant['weights_fp'].tolist(),
-            'bias': int(linear_quant['bias_fp']),
-            'n_features': int(linear_quant['n_features'])
-        },
-        'kernel': {
-            'support_vectors': kernel_quant['sv_fp'].tolist(),
-            'dual_coef': kernel_quant['dual_coef_fp'].tolist(),
-            'bias': int(kernel_quant['bias_fp']),
-            'gamma': int(kernel_quant['gamma_fp']),
-            'n_support': int(kernel_quant['n_support']),
-            'n_features': int(kernel_quant['n_features'])
-        }
+    # Create test data dictionary
+    test_data = {
+        'X_test': X_test_int.tolist(),
+        'y_test': y_test_bin.tolist() 
     }
     
-    with open('../results/quantized_params.json', 'w') as f:
-        json.dump(json_params, f, indent=2)
+    test_data_path = os.path.join(data_dir, 'test_data.json')
+    with open(test_data_path, 'w') as f:
+        json.dump(test_data, f)
+        
+    print(f"Saved test data (binary labels) to {test_data_path}")
     
-    print("\n" + "="*60)
-    print("Models and parameters saved successfully")
-    print("="*60)
+    # Save models pickle
+    with open(os.path.join(data_dir, 'svm_models.pkl'), 'wb') as f:
+        pickle.dump({'model_float': clf, 'metrics': {'acc_float': acc_float, 'acc_16': acc_16, 'acc_8': acc_8}}, f)
 
 if __name__ == "__main__":
     main()

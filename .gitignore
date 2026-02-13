@@ -1,0 +1,15 @@
+# Ignore build artifacts and temporary files
+*.log
+*.jou
+*.backup.*
+*.vcd
+__pycache__
+pynq/output/
+pynq/svm_pynq/
+pynq/pynq_output/
+build/
+results/
+deployment/
+svm.bit
+svm.hwh
+
