@@ -18,7 +18,7 @@ class SVMAccelerator:
         # self.load_parameters(params_path) # Moved to main to avoid overwrite by test
         
     def write_reg(self, offset, value):
-        self.mmio.write(offset, int(value))
+        self.mmio.write(offset, int(value) & 0xFFFFFFFF)
         
     def read_reg(self, offset):
         return self.mmio.read(offset)
@@ -26,16 +26,9 @@ class SVMAccelerator:
     def load_parameters(self, params_path):
         print("Loading Model Parameters to FPGA Registers...")
         with open(params_path, 'r') as f:
-            params = json.load(f)
+            linear_params = json.load(f)
             
-        linear_params = params['linear']
-        
         # Write Bias (0x10)
-        # Note: Registers take 32-bit int, but hardware uses lower 16 bits signed
-        # Python int handles sign, but we might need to mask for display or raw writing
-        # MMIO writes unsigned 32-bit usually.
-        # If bias is -200 (Q8.8), Python needs to send the 2's complement 32-bit equivalent
-        
         bias = linear_params['bias']
         self.write_reg(0x10, bias & 0xFFFFFFFF)
         
@@ -53,12 +46,12 @@ class SVMAccelerator:
         0x00: Control (Bit 0: Start)
         0x04: Status (Bit 0: Done)
         0x08: Result
-        0x60: Features Base
+        0x80: Features Base (Updated for 20 features)
         """
         
         # 1. Write Features
         for i, f in enumerate(features):
-            self.write_reg(0x60 + i*4, int(f) & 0xFFFFFFFF)
+            self.write_reg(0x80 + i*4, int(f) & 0xFFFFFFFF)
             
         # 1.5 Soft Reset (Bit 1) to clear internal state
         self.write_reg(0x00, 2) 
@@ -76,7 +69,7 @@ class SVMAccelerator:
                 break
             timeout -= 1
             if timeout % 100 == 0:
-                 print(f"DEBUG: Waiting for Done... Status=0x{status:08x}")
+                 pass # print(f"DEBUG: Waiting for Done... Status=0x{status:08x}")
                  
         if timeout == 0:
             print(f"ERROR: SVM Core Timed out! Status=0x{status:08x}")
@@ -103,7 +96,7 @@ def main():
     
     # Paths
     bitstream = "svm.bit" 
-    params_file = "quantized_params.json"
+    params_file = "linear_params.json"
     
     # Load Real Test Data
     # We need the quantized inputs from the test set

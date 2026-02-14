@@ -3,8 +3,8 @@
 # SW Build 6140274 on Wed May 21 22:58:25 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Fri Feb 13 21:12:46 2026
-# Process ID         : 212020
+# Start of session at: Sat Feb 14 06:11:14 2026
+# Process ID         : 50886
 # Current directory  : /home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/system_axi_lite_wrapper_0_0_synth_1
 # Command line       : vivado -log system_axi_lite_wrapper_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_axi_lite_wrapper_0_0.tcl
 # Log file           : /home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/system_axi_lite_wrapper_0_0_synth_1/system_axi_lite_wrapper_0_0.vds
@@ -13,16 +13,16 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.3 LTS
 # Processor Detail   : 11th Gen Intel(R) Core(TM) i7-1195G7 @ 2.90GHz
-# CPU Frequency      : 2400.024 MHz
+# CPU Frequency      : 3995.470 MHz
 # CPU Physical cores : 4
 # CPU Logical cores  : 8
 # Host memory        : 16526 MB
 # Swap memory        : 4294 MB
 # Total Virtual      : 20821 MB
-# Available Virtual  : 8974 MB
+# Available Virtual  : 7475 MB
 #-----------------------------------------------------------
 source system_axi_lite_wrapper_0_0.tcl -notrace
-create_project: Time (s): cpu = 00:00:17 ; elapsed = 00:00:08 . Memory (MB): peak = 1522.566 ; gain = 96.059 ; free physical = 4169 ; free virtual = 6928
+create_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:06 . Memory (MB): peak = 1605.762 ; gain = 129.160 ; free physical = 183 ; free virtual = 5369
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/2025.1/Vivado/data/ip'.
@@ -33,9 +33,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020
 INFO: [Device 21-403] Loading part xc7z020clg400-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 212876
+INFO: [Synth 8-7075] Helper process launched with PID 51785
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 2143.066 ; gain = 441.797 ; free physical = 566 ; free virtual = 3342
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:12 . Memory (MB): peak = 2143.301 ; gain = 441.797 ; free physical = 173 ; free virtual = 1758
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'system_axi_lite_wrapper_0_0' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_axi_lite_wrapper_0_0/synth/system_axi_lite_wrapper_0_0.v:53]
 INFO: [Synth 8-6157] synthesizing module 'axi_lite_wrapper' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/rtl/axi_lite_wrapper.v:4]
@@ -46,11 +46,11 @@ INFO: [Synth 8-6157] synthesizing module 'axi_lite_wrapper' [/home/salla-kaushik
 INFO: [Synth 8-6157] synthesizing module 'linear_svm' [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/rtl/linear_svm.v:3]
 	Parameter DATA_WIDTH bound to: 16 - type: integer 
 	Parameter FRAC_BITS bound to: 8 - type: integer 
-	Parameter NUM_FEATURES bound to: 16 - type: integer 
+	Parameter NUM_FEATURES bound to: 20 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'linear_svm' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/rtl/linear_svm.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'axi_lite_wrapper' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/rtl/axi_lite_wrapper.v:4]
 INFO: [Synth 8-6155] done synthesizing module 'system_axi_lite_wrapper_0_0' (0#1) [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.gen/sources_1/bd/system/ip/system_axi_lite_wrapper_0_0/synth/system_axi_lite_wrapper_0_0.v:53]
-WARNING: [Synth 8-6014] Unused sequential element sum_with_bias_reg was removed.  [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/rtl/linear_svm.v:153]
+WARNING: [Synth 8-6014] Unused sequential element sum_with_bias_reg was removed.  [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/rtl/linear_svm.v:168]
 WARNING: [Synth 8-6014] Unused sequential element axi_wready_reg was removed.  [/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/rtl/axi_lite_wrapper.v:58]
 WARNING: [Synth 8-7129] Port s_axi_awaddr[1] in module axi_lite_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port s_axi_awaddr[0] in module axi_lite_wrapper is either unconnected or has no load
@@ -65,76 +65,77 @@ WARNING: [Synth 8-7129] Port s_axi_arprot[2] in module axi_lite_wrapper is eithe
 WARNING: [Synth 8-7129] Port s_axi_arprot[1] in module axi_lite_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port s_axi_arprot[0] in module axi_lite_wrapper is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2230.035 ; gain = 528.766 ; free physical = 485 ; free virtual = 3249
+Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:14 . Memory (MB): peak = 2230.270 ; gain = 528.766 ; free physical = 188 ; free virtual = 1725
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2247.848 ; gain = 546.578 ; free physical = 484 ; free virtual = 3248
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:09 ; elapsed = 00:00:14 . Memory (MB): peak = 2248.082 ; gain = 546.578 ; free physical = 175 ; free virtual = 1718
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2247.848 ; gain = 546.578 ; free physical = 484 ; free virtual = 3248
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:14 . Memory (MB): peak = 2248.082 ; gain = 546.578 ; free physical = 175 ; free virtual = 1718
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2247.848 ; gain = 0.000 ; free physical = 491 ; free virtual = 3254
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.03 . Memory (MB): peak = 2248.082 ; gain = 0.000 ; free physical = 163 ; free virtual = 1716
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2366.586 ; gain = 0.000 ; free physical = 502 ; free virtual = 3266
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2369.820 ; gain = 0.000 ; free physical = 308 ; free virtual = 1856
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.1 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2366.621 ; gain = 0.000 ; free physical = 502 ; free virtual = 3266
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.06 . Memory (MB): peak = 2369.855 ; gain = 0.000 ; free physical = 336 ; free virtual = 1884
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 2366.621 ; gain = 665.352 ; free physical = 497 ; free virtual = 3252
+Finished Constraint Validation : Time (s): cpu = 00:00:19 ; elapsed = 00:00:24 . Memory (MB): peak = 2369.855 ; gain = 668.352 ; free physical = 321 ; free virtual = 1924
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg400-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 2374.590 ; gain = 673.320 ; free physical = 497 ; free virtual = 3252
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:19 ; elapsed = 00:00:24 . Memory (MB): peak = 2377.824 ; gain = 676.320 ; free physical = 321 ; free virtual = 1924
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 2374.590 ; gain = 673.320 ; free physical = 489 ; free virtual = 3244
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:24 . Memory (MB): peak = 2377.824 ; gain = 676.320 ; free physical = 321 ; free virtual = 1923
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2374.590 ; gain = 673.320 ; free physical = 477 ; free virtual = 3234
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:19 ; elapsed = 00:00:25 . Memory (MB): peak = 2377.824 ; gain = 676.320 ; free physical = 306 ; free virtual = 1912
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
+	   2 Input   41 Bit       Adders := 1     
 	   2 Input   40 Bit       Adders := 1     
 	   2 Input   39 Bit       Adders := 1     
 	   2 Input   38 Bit       Adders := 2     
-	   2 Input   37 Bit       Adders := 4     
-	   2 Input   33 Bit       Adders := 8     
+	   2 Input   37 Bit       Adders := 5     
+	   2 Input   33 Bit       Adders := 10    
 	   2 Input   32 Bit       Adders := 1     
 +---Registers : 
-	               39 Bit    Registers := 1     
-	               38 Bit    Registers := 2     
-	               37 Bit    Registers := 4     
-	               36 Bit    Registers := 8     
-	               32 Bit    Registers := 53    
-	               16 Bit    Registers := 7     
+	               40 Bit    Registers := 1     
+	               39 Bit    Registers := 2     
+	               38 Bit    Registers := 3     
+	               37 Bit    Registers := 5     
+	               36 Bit    Registers := 10    
+	               32 Bit    Registers := 65    
+	               16 Bit    Registers := 8     
 	                8 Bit    Registers := 1     
 	                2 Bit    Registers := 2     
-	                1 Bit    Registers := 12    
+	                1 Bit    Registers := 13    
 +---Muxes : 
 	   2 Input   32 Bit        Muxes := 7     
 	   3 Input   16 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 39    
-	   4 Input    1 Bit        Muxes := 33    
-	   3 Input    1 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 47    
+	   3 Input    1 Bit        Muxes := 42    
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -183,6 +184,14 @@ DSP Report: Generating DSP p_0_out, operation Mode is: A*B.
 DSP Report: operator p_0_out is absorbed into DSP p_0_out.
 DSP Report: Generating DSP p_0_out, operation Mode is: A*B.
 DSP Report: operator p_0_out is absorbed into DSP p_0_out.
+DSP Report: Generating DSP p_0_out, operation Mode is: A*B.
+DSP Report: operator p_0_out is absorbed into DSP p_0_out.
+DSP Report: Generating DSP p_0_out, operation Mode is: A*B.
+DSP Report: operator p_0_out is absorbed into DSP p_0_out.
+DSP Report: Generating DSP p_0_out, operation Mode is: A*B.
+DSP Report: operator p_0_out is absorbed into DSP p_0_out.
+DSP Report: Generating DSP p_0_out, operation Mode is: A*B.
+DSP Report: operator p_0_out is absorbed into DSP p_0_out.
 WARNING: [Synth 8-7129] Port s_axi_awaddr[1] in module axi_lite_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port s_axi_awaddr[0] in module axi_lite_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port s_axi_awprot[2] in module axi_lite_wrapper is either unconnected or has no load
@@ -196,10 +205,14 @@ WARNING: [Synth 8-7129] Port s_axi_arprot[2] in module axi_lite_wrapper is eithe
 WARNING: [Synth 8-7129] Port s_axi_arprot[1] in module axi_lite_wrapper is either unconnected or has no load
 WARNING: [Synth 8-7129] Port s_axi_arprot[0] in module axi_lite_wrapper is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:23 . Memory (MB): peak = 2374.590 ; gain = 673.320 ; free physical = 183 ; free virtual = 2880
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:30 . Memory (MB): peak = 2377.824 ; gain = 676.320 ; free physical = 159 ; free virtual = 1647
 ---------------------------------------------------------------------------------
  Sort Area is  p_0_out_0 : 0 0 : 1937 1937 : Used 1 time 0
  Sort Area is  p_0_out_10 : 0 0 : 1937 1937 : Used 1 time 0
+ Sort Area is  p_0_out_11 : 0 0 : 1937 1937 : Used 1 time 0
+ Sort Area is  p_0_out_12 : 0 0 : 1937 1937 : Used 1 time 0
+ Sort Area is  p_0_out_13 : 0 0 : 1937 1937 : Used 1 time 0
+ Sort Area is  p_0_out_14 : 0 0 : 1937 1937 : Used 1 time 0
  Sort Area is  p_0_out_2 : 0 0 : 1937 1937 : Used 1 time 0
  Sort Area is  p_0_out_3 : 0 0 : 1937 1937 : Used 1 time 0
  Sort Area is  p_0_out_4 : 0 0 : 1937 1937 : Used 1 time 0
@@ -238,6 +251,10 @@ DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding R
 |linear_svm  | A*B         | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 |linear_svm  | A*B         | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 |linear_svm  | A*B         | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|linear_svm  | A*B         | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|linear_svm  | A*B         | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|linear_svm  | A*B         | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|linear_svm  | A*B         | 16     | 16     | -      | -      | 32     | 0    | 0    | -    | -    | -     | 0    | 0    | 
 +------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 
 Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
@@ -248,19 +265,19 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:32 ; elapsed = 00:00:32 . Memory (MB): peak = 2451.590 ; gain = 750.320 ; free physical = 344 ; free virtual = 2818
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:34 ; elapsed = 00:00:40 . Memory (MB): peak = 2451.824 ; gain = 750.320 ; free physical = 176 ; free virtual = 1432
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2454.590 ; gain = 753.320 ; free physical = 340 ; free virtual = 2813
+Finished Timing Optimization : Time (s): cpu = 00:00:35 ; elapsed = 00:00:40 . Memory (MB): peak = 2454.824 ; gain = 753.320 ; free physical = 160 ; free virtual = 1440
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:33 ; elapsed = 00:00:33 . Memory (MB): peak = 2474.629 ; gain = 773.359 ; free physical = 319 ; free virtual = 2792
+Finished Technology Mapping : Time (s): cpu = 00:00:35 ; elapsed = 00:00:41 . Memory (MB): peak = 2481.863 ; gain = 780.359 ; free physical = 194 ; free virtual = 1471
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -278,37 +295,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 2642.441 ; gain = 941.172 ; free physical = 151 ; free virtual = 2624
+Finished IO Insertion : Time (s): cpu = 00:00:39 ; elapsed = 00:00:45 . Memory (MB): peak = 2643.676 ; gain = 942.172 ; free physical = 185 ; free virtual = 1246
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 2642.441 ; gain = 941.172 ; free physical = 151 ; free virtual = 2624
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:39 ; elapsed = 00:00:45 . Memory (MB): peak = 2643.676 ; gain = 942.172 ; free physical = 185 ; free virtual = 1245
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 2642.441 ; gain = 941.172 ; free physical = 151 ; free virtual = 2624
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:39 ; elapsed = 00:00:45 . Memory (MB): peak = 2643.676 ; gain = 942.172 ; free physical = 185 ; free virtual = 1245
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 2642.441 ; gain = 941.172 ; free physical = 151 ; free virtual = 2624
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:39 ; elapsed = 00:00:45 . Memory (MB): peak = 2643.676 ; gain = 942.172 ; free physical = 185 ; free virtual = 1245
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 2642.441 ; gain = 941.172 ; free physical = 151 ; free virtual = 2624
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:39 ; elapsed = 00:00:45 . Memory (MB): peak = 2643.676 ; gain = 942.172 ; free physical = 180 ; free virtual = 1241
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 2642.441 ; gain = 941.172 ; free physical = 151 ; free virtual = 2624
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:39 ; elapsed = 00:00:45 . Memory (MB): peak = 2643.676 ; gain = 942.172 ; free physical = 180 ; free virtual = 1241
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -318,7 +335,7 @@ Static Shift Register Report:
 +----------------------------+-----------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
 |Module Name                 | RTL Name                          | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
 +----------------------------+-----------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
-|system_axi_lite_wrapper_0_0 | inst/core/bias_delayed_reg[4][15] | 5      | 16    | YES          | NO                 | YES               | 16     | 0       | 
+|system_axi_lite_wrapper_0_0 | inst/core/bias_delayed_reg[5][15] | 6      | 16    | YES          | NO                 | YES               | 16     | 0       | 
 +----------------------------+-----------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
 
 ---------------------------------------------------------------------------------
@@ -348,6 +365,10 @@ DSP Final Report (the ' indicates corresponding REG is set)
 |linear_svm  | (A'*B')'    | 30     | 18     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 0    | 1    | 
 |linear_svm  | (A'*B')'    | 30     | 18     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 0    | 1    | 
 |linear_svm  | (A'*B')'    | 30     | 18     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|linear_svm  | (A'*B')'    | 30     | 18     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|linear_svm  | (A'*B')'    | 30     | 18     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|linear_svm  | (A'*B')'    | 30     | 18     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 0    | 1    | 
+|linear_svm  | (A'*B')'    | 30     | 18     | -      | -      | 32     | 1    | 1    | -    | -    | -     | 0    | 1    | 
 +------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 
 
@@ -361,45 +382,44 @@ Report Cell Usage:
 +------+--------+------+
 |      |Cell    |Count |
 +------+--------+------+
-|1     |CARRY4  |   167|
-|2     |DSP48E1 |    16|
-|3     |LUT1    |    11|
-|4     |LUT2    |   566|
-|5     |LUT3    |   262|
-|6     |LUT4    |     6|
-|7     |LUT5    |    65|
-|8     |LUT6    |   372|
+|1     |CARRY4  |   205|
+|2     |DSP48E1 |    20|
+|3     |LUT1    |    13|
+|4     |LUT2    |   706|
+|5     |LUT3    |   343|
+|6     |LUT4    |     5|
+|7     |LUT5    |    32|
+|8     |LUT6    |   506|
 |9     |MUXF7   |   128|
-|10    |MUXF8   |    32|
-|11    |SRL16E  |    16|
-|12    |FDCE    |   571|
-|13    |FDRE    |  1230|
+|10    |SRL16E  |    16|
+|11    |FDCE    |   792|
+|12    |FDRE    |  1486|
 +------+--------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 2642.441 ; gain = 941.172 ; free physical = 151 ; free virtual = 2624
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:40 ; elapsed = 00:00:45 . Memory (MB): peak = 2643.676 ; gain = 942.172 ; free physical = 180 ; free virtual = 1241
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 13 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 2642.441 ; gain = 822.398 ; free physical = 151 ; free virtual = 2624
-Synthesis Optimization Complete : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 2642.449 ; gain = 941.172 ; free physical = 151 ; free virtual = 2624
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:37 ; elapsed = 00:00:43 . Memory (MB): peak = 2643.676 ; gain = 820.398 ; free physical = 180 ; free virtual = 1243
+Synthesis Optimization Complete : Time (s): cpu = 00:00:40 ; elapsed = 00:00:45 . Memory (MB): peak = 2643.684 ; gain = 942.172 ; free physical = 180 ; free virtual = 1244
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2642.449 ; gain = 0.000 ; free physical = 312 ; free virtual = 2785
-INFO: [Netlist 29-17] Analyzing 343 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2643.684 ; gain = 0.000 ; free physical = 157 ; free virtual = 1256
+INFO: [Netlist 29-17] Analyzing 353 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2698.469 ; gain = 0.000 ; free physical = 268 ; free virtual = 2741
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2699.703 ; gain = 0.000 ; free physical = 313 ; free virtual = 1440
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: 64134c5e
+Synth Design complete | Checksum: fc48f014
 INFO: [Common 17-83] Releasing license: Synthesis
 24 Infos, 27 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:53 ; elapsed = 00:00:49 . Memory (MB): peak = 2698.504 ; gain = 1175.938 ; free physical = 262 ; free virtual = 2735
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1651.922; main = 1651.922; forked = 217.672
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3338.477; main = 2698.473; forked = 963.883
+synth_design: Time (s): cpu = 00:00:55 ; elapsed = 00:01:00 . Memory (MB): peak = 2699.738 ; gain = 1093.977 ; free physical = 308 ; free virtual = 1436
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1589.437; main = 1567.657; forked = 329.956
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3437.742; main = 2699.707; forked = 1094.078
 INFO: [Coretcl 2-1174] Renamed 2 cell refs.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00 . Memory (MB): peak = 2722.480 ; gain = 0.000 ; free physical = 262 ; free virtual = 2735
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2723.715 ; gain = 0.000 ; free physical = 296 ; free virtual = 1425
 INFO: [Common 17-1381] The checkpoint '/home/salla-kaushik/Documents/Semester_8/HW4AI/svm_fpga_accelerator/pynq/svm_pynq_project/svm_pynq_project.runs/system_axi_lite_wrapper_0_0_synth_1/system_axi_lite_wrapper_0_0.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file system_axi_lite_wrapper_0_0_utilization_synth.rpt -pb system_axi_lite_wrapper_0_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Fri Feb 13 21:13:50 2026...
+INFO: [Common 17-206] Exiting Vivado at Sat Feb 14 06:12:26 2026...

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.1 (lin64) Build 6140274 Wed May 21 22:58:25 MDT 2025
-| Date             : Fri Feb 13 21:16:31 2026
+| Date             : Sat Feb 14 06:14:52 2026
 | Host             : aetherion running 64-bit Ubuntu 24.04.3 LTS
 | Command          : report_power -file system_wrapper_power_routed.rpt -pb system_wrapper_power_summary_routed.pb -rpx system_wrapper_power_routed.rpx
 | Design           : system_wrapper
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 1.679        |
+| Total On-Chip Power (W)  | 1.681        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 1.543        |
+| Dynamic (W)              | 1.545        |
 | Device Static (W)        | 0.136        |
 | Effective TJA (C/W)      | 11.5         |
 | Max Ambient (C)          | 65.6         |
@@ -53,18 +53,18 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |     0.004 |        3 |       --- |             --- |
-| Slice Logic             |     0.003 |     4920 |       --- |             --- |
-|   LUT as Logic          |     0.003 |     1488 |     53200 |            2.80 |
-|   CARRY4                |    <0.001 |      178 |     13300 |            1.34 |
-|   Register              |    <0.001 |     2411 |    106400 |            2.27 |
-|   F7/F8 Muxes           |    <0.001 |      160 |     53200 |            0.30 |
+| Slice Logic             |     0.003 |     5726 |       --- |             --- |
+|   LUT as Logic          |     0.003 |     1735 |     53200 |            3.26 |
+|   CARRY4                |    <0.001 |      216 |     13300 |            1.62 |
+|   Register              |    <0.001 |     2888 |    106400 |            2.71 |
+|   F7/F8 Muxes           |    <0.001 |      128 |     53200 |            0.24 |
 |   LUT as Shift Register |    <0.001 |       18 |     17400 |            0.10 |
 |   Others                |     0.000 |      233 |       --- |             --- |
-| Signals                 |     0.003 |     3852 |       --- |             --- |
-| DSPs                    |     0.008 |       16 |       220 |            7.27 |
+| Signals                 |     0.003 |     4643 |       --- |             --- |
+| DSPs                    |     0.010 |       20 |       220 |            9.09 |
 | PS7                     |     1.525 |        1 |       --- |             --- |
 | Static Power            |     0.136 |          |           |                 |
-| Total                   |     1.679 |          |           |                 |
+| Total                   |     1.681 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -74,7 +74,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.032 |       0.017 |      0.015 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.035 |       0.020 |      0.015 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.015 |       0.000 |      0.015 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -150,12 +150,12 @@ Table of Contents
 +--------------------------+-----------+
 | Name                     | Power (W) |
 +--------------------------+-----------+
-| system_wrapper           |     1.542 |
-|   system_i               |     1.542 |
-|     axi_lite_wrapper_0   |     0.014 |
-|       inst               |     0.014 |
-|     axi_smc              |     0.003 |
-|       inst               |     0.003 |
+| system_wrapper           |     1.545 |
+|   system_i               |     1.545 |
+|     axi_lite_wrapper_0   |     0.017 |
+|       inst               |     0.017 |
+|     axi_smc              |     0.002 |
+|       inst               |     0.002 |
 |     processing_system7_0 |     1.525 |
 |       inst               |     1.525 |
 +--------------------------+-----------+

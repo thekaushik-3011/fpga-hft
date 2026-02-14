@@ -69,16 +69,16 @@ module axi_lite_wrapper #(
     // 0x08: Decision Value (Result)
     // 0x0C: Latency Counter
     // 0x10: Bias
-    // 0x20 - 0x5C: Weights (16 regs) -> offsets 0x20 + i*4
-    // 0x60 - 0x9C: Features (16 regs) -> offsets 0x60 + i*4
+    // 0x20 - 0x6C: Weights (20 regs) -> offsets 0x20 + i*4
+    // 0x80 - 0xCC: Features (20 regs) -> offsets 0x80 + i*4
     
     reg [31:0] reg_control;
     reg [31:0] reg_status;
     reg [31:0] reg_result;
     reg [31:0] reg_latency;
     reg [31:0] reg_bias;
-    reg [31:0] reg_weights [0:15];
-    reg [31:0] reg_features [0:15];
+    reg [31:0] reg_weights [0:19];
+    reg [31:0] reg_features [0:19];
     
     // Internal Signals
     wire start_pulse;
@@ -88,12 +88,12 @@ module axi_lite_wrapper #(
     wire svm_prediction;
     
     // Flattened Arrays for SVM Core
-    reg [16*16-1:0] features_flat;
-    reg [16*16-1:0] weights_flat;
+    reg [16*20-1:0] features_flat;
+    reg [16*20-1:0] weights_flat;
     
     genvar k;
     generate
-        for (k = 0; k < 16; k = k + 1) begin : gen_flat
+        for (k = 0; k < 20; k = k + 1) begin : gen_flat
             always @(*) begin
                 features_flat[(k+1)*16-1 : k*16] = reg_features[k][15:0];
                 weights_flat[(k+1)*16-1 : k*16]  = reg_weights[k][15:0];
@@ -101,17 +101,12 @@ module axi_lite_wrapper #(
         end
     endgenerate
     
-    // Latency Timer Logic merged into Status Logic below
-
-
     // Instantiate Linear SVM
-    // assign start_pulse = reg_control[0]; // REPLACED BY LOWER LOGIC
-    // assign soft_reset  = reg_control[1]; // REPLACED BY LOWER LOGIC
     
     linear_svm #(
         .DATA_WIDTH(16),
         .FRAC_BITS(8),
-        .NUM_FEATURES(16)
+        .NUM_FEATURES(20)
     ) core (
         .clk(s_axi_aclk),
         .rst_n(s_axi_aresetn & ~reg_control[1]), // Use reg_control directly
@@ -171,7 +166,7 @@ module axi_lite_wrapper #(
             axi_bresp   <= 2'b0;
             // Registers reset
             reg_bias <= 0;
-            for (i=0; i<16; i=i+1) begin
+            for (i=0; i<20; i=i+1) begin
                  reg_weights[i] <= 0;
                  reg_features[i] <= 0;
             end
@@ -183,30 +178,23 @@ module axi_lite_wrapper #(
                 
                 // Write Operation
                 case (s_axi_awaddr[7:2]) // Word aligned address
-                    6'h00: reg_control <= s_axi_wdata;
+                    6'h00: reg_control <= s_axi_wdata; // 0x00
                     // 0x04 Status is Read Only
                     // 0x08 Result is Read Only
                     // 0x0C Latency is Read Only
-                    6'h04: reg_bias <= s_axi_wdata; // 0x10 -> 16/4 = 4. Wait. Hex 10 is 16. 16/4=4.
-                                                    // My case keys are Indices (Address >> 2)
-                    // 0x00 >> 2 = 0
-                    // 0x04 >> 2 = 1
-                    // 0x08 >> 2 = 2
-                    // 0x0C >> 2 = 3
-                    // 0x10 >> 2 = 4 (Bias)
+                    6'h04: reg_bias <= s_axi_wdata; // 0x10 -> 16/4 = 4. 
                     
                     // Weights: 0x20 = 32. 32/4 = 8.
-                    // Range 8 to 8+15 (23)
+                    // Range 8 to 8+19 (27)
                     
-                    // Features: 0x60 = 96. 96/4 = 24.
-                    // Range 24 to 24+15 (39)
+                    // Features: 0x80 = 128. 128/4 = 32.
+                    // Range 32 to 32+19 (51)
                     
                     default: begin
-                        if (s_axi_awaddr[7:2] == 4) reg_bias <= s_axi_wdata;
-                        else if (s_axi_awaddr[7:2] >= 8 && s_axi_awaddr[7:2] < 24)
+                        if (s_axi_awaddr[7:2] >= 8 && s_axi_awaddr[7:2] < 28)
                              reg_weights[s_axi_awaddr[7:2] - 8] <= s_axi_wdata;
-                        else if (s_axi_awaddr[7:2] >= 24 && s_axi_awaddr[7:2] < 40)
-                             reg_features[s_axi_awaddr[7:2] - 24] <= s_axi_wdata;
+                        else if (s_axi_awaddr[7:2] >= 32 && s_axi_awaddr[7:2] < 52)
+                             reg_features[s_axi_awaddr[7:2] - 32] <= s_axi_wdata;
                     end
                 endcase
                 
@@ -251,10 +239,10 @@ module axi_lite_wrapper #(
                     3: axi_rdata <= reg_latency;
                     4: axi_rdata <= reg_bias;
                     default: begin
-                         if (axi_araddr[7:2] >= 8 && axi_araddr[7:2] < 24)
+                         if (axi_araddr[7:2] >= 8 && axi_araddr[7:2] < 28)
                              axi_rdata <= reg_weights[axi_araddr[7:2] - 8];
-                         else if (axi_araddr[7:2] >= 24 && axi_araddr[7:2] < 40)
-                             axi_rdata <= reg_features[axi_araddr[7:2] - 24];
+                         else if (axi_araddr[7:2] >= 32 && axi_araddr[7:2] < 52)
+                             axi_rdata <= reg_features[axi_araddr[7:2] - 32];
                          else
                              axi_rdata <= 0;
                     end
